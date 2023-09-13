@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.MainPage"
+            xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:model="clr-namespace:MauiApp1"
+             BackgroundColor="white">
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+            
+            <Label Grid.Row="0" Grid.Column="0" Text="From" VerticalOptions="Center" HorizontalOptions="Start" Margin="10" TextColor="Black"/>
+            <DatePicker x:Name="FromDate" Grid.Row="0" Grid.Column="1" VerticalOptions="CenterAndExpand" Date="{Binding BeginDate}" DateSelected="DatePickerFrom_DateSelected" Margin="10" BackgroundColor="CadetBlue"/>
+            <Label Grid.Row="0" Grid.Column="2" Text="To" VerticalOptions="Center" HorizontalOptions="Start" Margin="10" TextColor="Black"/>
+            <DatePicker x:Name="ToDate" Grid.Row="0" Grid.Column="3" VerticalOptions="CenterAndExpand" Date="{Binding EndDate}" DateSelected="DatePickerTo_DateSelected" Margin="10" BackgroundColor="CadetBlue"/>
+            <Label Grid.Row="0" Grid.Column="4" Text="CabName" VerticalOptions="Center" HorizontalOptions="Start" Margin="10" TextColor="Black"/>
+            <Picker x:Name="partnamePicker" ItemsSource="{Binding PartItmes}" VerticalOptions="CenterAndExpand" SelectedIndex="{Binding SelectedTypeIndex}" SelectedIndexChanged="CabnamePicker_SelectedIndexChanged" Grid.Row="0" Grid.Column="5" TextColor="Black" BackgroundColor="CadetBlue"/>
+            
+            <Label Grid.Row="0" Grid.Column="6" Text="PartId" VerticalOptions="Center" HorizontalOptions="Start" Margin="10" TextColor="Black"/>
+            <Picker x:Name="partidPicker" ItemsSource="{Binding PartIdItems}" VerticalOptions="CenterAndExpand" SelectedIndex="{Binding SelectedTypeIndex}" SelectedIndexChanged="PartIdPicker_SelectedIndexChanged" Grid.Row="0" Grid.Column="7" TextColor="Black" BackgroundColor="CadetBlue"/>
+            
+            <Label Grid.Row="0" Grid.Column="8" Text="Schedule" VerticalOptions="Center" HorizontalOptions="Start" Margin="10" TextColor="Black"/>
+            <Picker x:Name="schedulePicker" ItemsSource="{Binding ScheduleItems}" VerticalOptions="CenterAndExpand" SelectedIndex="{Binding SelectedTypeIndex}" SelectedIndexChanged="SchedulePicker_SelectedIndexChanged" Grid.Row="0" Grid.Column="9" TextColor="Black" BackgroundColor="CadetBlue"/>
+            
+            <Label Grid.Row="0" Grid.Column="10" Text="OrderNo" VerticalOptions="Center" HorizontalOptions="Start" Margin="10" TextColor="Black"/>
+            <Picker x:Name="ordernumberPicker" ItemsSource="{Binding OrderNumbers}" VerticalOptions="CenterAndExpand" SelectedIndex="{Binding SelectedTypeIndex}" SelectedIndexChanged="OrdernumberPicker_SelectedIndexChanged" Grid.Row="0" Grid.Column="11" TextColor="Black" BackgroundColor="CadetBlue"/>
+            
+            <chart:SfCartesianChart Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="12" VerticalOptions="CenterAndExpand" BackgroundColor="Azure">
+                <chart:SfCartesianChart.Title>
+                    <Label Text="Check Out Comparation"/>
+                </chart:SfCartesianChart.Title>
+
+                <chart:SfCartesianChart.Legend>
+                    <chart:ChartLegend/>
+                </chart:SfCartesianChart.Legend>
+                <chart:SfCartesianChart.TrackballBehavior>
+                    <chart:ChartTrackballBehavior ShowLine="True" 
+                                  DisplayMode="NearestPoint"/>
+                </chart:SfCartesianChart.TrackballBehavior>
+                <chart:SfCartesianChart.XAxes>
+                    <chart:DateTimeAxis>
+                        <chart:DateTimeAxis.LabelStyle>
+                            <chart:ChartAxisLabelStyle LabelFormat="yy-MM-dd" FontSize="14"/>
+                        </chart:DateTimeAxis.LabelStyle>
+                    </chart:DateTimeAxis>
+                </chart:SfCartesianChart.XAxes>
+
+                <chart:SfCartesianChart.YAxes>
+                    <chart:NumericalAxis>
+                        <chart:NumericalAxis.Title>
+                            <chart:ChartAxisTitle Text="CheckInPerDay"/>
+                        </chart:NumericalAxis.Title>
+                    </chart:NumericalAxis>
+                </chart:SfCartesianChart.YAxes>
+                
+                <!--Initialize the series for chart-->
+                <chart:LineSeries Label="CheckInCount" 
+                    EnableTooltip="True"
+                    ShowDataLabels="True"
+                    ItemsSource="{Binding Data}"
+
+                    XBindingPath="DateStr"
+                    YBindingPath="CheckInCount">
+                    <chart:LineSeries.DataLabelSettings>
+                        <chart:CartesianDataLabelSettings LabelPlacement="Center"/>
+                    </chart:LineSeries.DataLabelSettings>
+                </chart:LineSeries>
+                <chart:SfCartesianChart.ZoomPanBehavior>
+                    <chart:ChartZoomPanBehavior EnablePanning="True" ZoomMode="X"/>
+                </chart:SfCartesianChart.ZoomPanBehavior>
+            </chart:SfCartesianChart>
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>
